@@ -1,0 +1,49 @@
+import json
+
+# Функция для загрузки данных из файла JSON
+def load_data():
+    try:
+        with open('contacts.json', 'r') as file:
+            return json.load(file)
+    except FileNotFoundError:
+        return {}
+
+# Функция для сохранения данных в файл JSON
+def save_data(data):
+    with open('contacts.json', 'w') as file:
+        json.dump(data, file, indent=4)
+
+# Функция для просмотра контактов
+def view_contacts():
+    contacts = load_data()
+    if contacts:
+        print("Список контактов:")
+        for name, number in contacts.items():
+            print(f"{name}: {number}")
+    else:
+        print("Контактов нет")
+
+# Функция для добавления нового контакта
+def add_contact(name, number):
+    contacts = load_data()
+    contacts[name] = number
+    save_data(contacts)
+    print(f"Контакт {name} добавлен")
+
+# Функция для поиска контакта по имени
+def search_contact(name):
+    contacts = load_data()
+    if name in contacts:
+        print(f"{name}: {contacts[name]}")
+    else:
+        print(f"Контакт {name} не найден")
+
+# Функция для удаления контакта
+def delete_contact(name):
+    contacts = load_data()
+    if name in contacts:
+        del contacts[name]
+        save_data(contacts)
+        print(f"Контакт {name} удален")
+    else:
+        print(f"Контакт {name} не найден")
