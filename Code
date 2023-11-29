@@ -47,3 +47,46 @@ def delete_contact(name):
         print(f"Контакт {name} удален")
     else:
         print(f"Контакт {name} не найден")
+
+# Функция для изменения номера телефона у контакта
+def edit_contact(name, new_number):
+    contacts = load_data()
+    if name in contacts:
+        contacts[name] = new_number
+        save_data(contacts)
+        print(f"Номер телефона для {name} изменен на {new_number}")
+    else:
+        print(f"Контакт {name} не найден")
+
+# Пример использования функций
+while True:
+    print("\nМеню:")
+    print("1. Просмотр контактов")
+    print("2. Добавить контакт")
+    print("3. Поиск контакта")
+    print("4. Удалить контакт")
+    print("5. Изменить номер контакта")
+    print("6. Выйти")
+
+    choice = input("Выберите действие: ")
+
+    if choice == '1':
+        view_contacts()
+    elif choice == '2':
+        name = input("Введите имя контакта: ")
+        number = input("Введите номер телефона: ")
+        add_contact(name, number)
+    elif choice == '3':
+        name = input("Введите имя контакта для поиска: ")
+        search_contact(name)
+    elif choice == '4':
+        name = input("Введите имя контакта для удаления: ")
+        delete_contact(name)
+    elif choice == '5':
+        name = input("Введите имя контакта для изменения номера: ")
+        new_number = input("Введите новый номер телефона: ")
+        edit_contact(name, new_number)
+    elif choice == '6':
+        break
+    else:
+        print("Неверный выбор. Попробуйте снова.")
